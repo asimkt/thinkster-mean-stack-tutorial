@@ -86,7 +86,7 @@ router.post('/posts/:post/comments', function(req, res, next) {
 
 // Functionality not tested
 router.post('/posts/:post/comments/:comment/upvote', function(req, res, next) {
-  req.post.comment.upvote(function(err, post){
+  req.comment.upvote(function(err, post){
     if (err) { return next(err); }
 
     res.json(post);
