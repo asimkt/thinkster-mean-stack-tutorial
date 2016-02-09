@@ -34,6 +34,11 @@ app.factory('posts', ['$http', function($http){
       angular.copy(data, o.posts);
     });
   };
+  o.create = function(post) {
+    return $http.post('/posts', post).success(function(data){
+      o.posts.push(data);
+    });
+  };
   return o;
 }]);
 
@@ -44,14 +49,9 @@ function($scope, posts){
   $scope.posts = posts.posts;
   $scope.addPost = function(){
     if(!$scope.title || $scope.title === '') { return; }
-    $scope.posts.push({
+    posts.create({
       title: $scope.title,
       link: $scope.link,
-      upvotes: 0,
-      comments: [
-        {author: 'Joe', body: 'Cool post!', upvotes: 0},
-        {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
-      ]
     });
     $scope.title = '';
     $scope.link = '';
